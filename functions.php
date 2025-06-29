@@ -143,27 +143,68 @@ function freneticfocus_scripts() {
     // Base styles (global styles, layout, typography)
     wp_enqueue_style('freneticfocus-base', FRENETICFOCUS_URI . '/assets/css/base.css', array(), FRENETICFOCUS_VERSION);
     
+    // Animated buttons and CTAs
+    wp_enqueue_style('freneticfocus-animated-buttons', FRENETICFOCUS_URI . '/assets/css/animated-buttons.css', array(), FRENETICFOCUS_VERSION);
+    
+    // Logo styles
+    wp_enqueue_style('freneticfocus-logo', FRENETICFOCUS_URI . '/assets/css/logo.css', array(), FRENETICFOCUS_VERSION);
+    
     // Navigation styles
     wp_enqueue_style('freneticfocus-navigation', FRENETICFOCUS_URI . '/assets/css/navigation.css', array(), FRENETICFOCUS_VERSION);
     
     // Custom styles - all theme-specific styles moved here
     wp_enqueue_style('freneticfocus-custom', FRENETICFOCUS_URI . '/assets/css/custom.css', array(), FRENETICFOCUS_VERSION);
     
-    // Services page styles
-    if (is_page_template('page-services.php')) {
+    // Hero text enhancement styles - applied to home and services pages
+    wp_enqueue_style('freneticfocus-hero-enhancement', FRENETICFOCUS_URI . '/assets/css/updates/hero-text-enhancement.css', array(), FRENETICFOCUS_VERSION);
+    
+    // Front page specific styles
+    if (is_front_page()) {
+        wp_enqueue_style('freneticfocus-front-page', FRENETICFOCUS_URI . '/assets/css/front-page.css', array(), FRENETICFOCUS_VERSION);
+    }
+    
+    // Services page styles - check for potential slug variations and templates
+    if (is_page_template('page-services.php') || is_page_template('template-services.php') || 
+        is_page('services') || is_page('our-services') || 
+        (is_page() && get_post_meta(get_the_ID(), '_wp_page_template', true) == 'template-services.php') ||
+        is_post_type_archive('service') || is_singular('service')) {
         wp_enqueue_style('freneticfocus-services', FRENETICFOCUS_URI . '/assets/css/services.css', array(), FRENETICFOCUS_VERSION);
+    }
+    
+    // Single service page style
+    if (is_singular('service')) {
+        wp_enqueue_style('freneticfocus-single-service', FRENETICFOCUS_URI . '/assets/css/single-service.css', array(), FRENETICFOCUS_VERSION);
+    }
+    
+    // About page styles
+    if (is_page_template('page-about.php') || is_page('about')) {
+        wp_enqueue_style('freneticfocus-about', FRENETICFOCUS_URI . '/assets/css/about.css', array(), FRENETICFOCUS_VERSION);
     }
     
     // Contact page styles
     if (is_page_template('page-contact.php')) {
         wp_enqueue_style('freneticfocus-contact', FRENETICFOCUS_URI . '/assets/css/contact.css', array(), FRENETICFOCUS_VERSION);
     }
+    
+    // Footer styles - load on all pages
+    wp_enqueue_style('freneticfocus-footer', FRENETICFOCUS_URI . '/assets/css/footer.css', array(), FRENETICFOCUS_VERSION);
+    
+    // Animated background styles - used on multiple pages
+    wp_enqueue_style('freneticfocus-animated-bg', FRENETICFOCUS_URI . '/assets/css/animated-gradient.css', array(), FRENETICFOCUS_VERSION);
 
     // Header JavaScript
     wp_enqueue_script('freneticfocus-header', FRENETICFOCUS_URI . '/js/header.js', array(), FRENETICFOCUS_VERSION, true);
     
     // Theme main JS - handles general functionality
     wp_enqueue_script('freneticfocus-main', FRENETICFOCUS_URI . '/js/main.js', array('jquery'), FRENETICFOCUS_VERSION, true);
+    
+    // Services page script - check for potential slug variations and templates
+    if (is_page_template('page-services.php') || is_page_template('template-services.php') || 
+        is_page('services') || is_page('our-services') || 
+        (is_page() && get_post_meta(get_the_ID(), '_wp_page_template', true) == 'template-services.php') ||
+        is_post_type_archive('service') || is_singular('service')) {
+        wp_enqueue_script('freneticfocus-services', FRENETICFOCUS_URI . '/js/services.js', array('jquery'), FRENETICFOCUS_VERSION, true);
+    }
 
     if (is_singular() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
@@ -175,6 +216,11 @@ add_action('wp_enqueue_scripts', 'freneticfocus_scripts');
  * Implement the Custom Header feature.
  */
 require FRENETICFOCUS_DIR . '/inc/customizer.php';
+
+/**
+ * Load link helper functions.
+ */
+require FRENETICFOCUS_DIR . '/inc/link-helper.php';
 
 /**
  * Load Kirki for enhanced customizer options (if installed)
@@ -216,7 +262,7 @@ function freneticfocus_register_post_types() {
         'show_ui'               => true,
         'show_in_menu'          => true,
         'query_var'             => true,
-        'rewrite'               => array('slug' => 'services'),
+        'rewrite'               => array('slug' => 'service-offerings'),
         'capability_type'       => 'post',
         'has_archive'           => true,
         'hierarchical'          => false,
@@ -284,6 +330,7 @@ function freneticfocus_service_details_callback($post) {
     // Retrieve current values
     $service_icon = get_post_meta($post->ID, '_service_icon', true);
     $service_link = get_post_meta($post->ID, '_service_link', true);
+    $service_features = get_post_meta($post->ID, '_service_features', true);
 
     // Display form fields
     ?>
@@ -296,6 +343,11 @@ function freneticfocus_service_details_callback($post) {
         <label for="service_link"><?php _e('Service Link', 'freneticfocus'); ?></label>
         <input type="text" id="service_link" name="service_link" value="<?php echo esc_attr($service_link); ?>" class="widefat">
         <span class="description"><?php _e('Enter the URL for "Learn More" button.', 'freneticfocus'); ?></span>
+    </p>
+    <p>
+        <label for="service_features"><?php _e('Service Features', 'freneticfocus'); ?></label>
+        <textarea id="service_features" name="service_features" class="widefat" rows="10"><?php echo esc_textarea($service_features); ?></textarea>
+        <span class="description"><?php _e('Enter features, one per line. These will be displayed as bullet points.', 'freneticfocus'); ?></span>
     </p>
     <?php
 }
@@ -334,6 +386,10 @@ function freneticfocus_save_meta_boxes($post_id) {
 
     if (isset($_POST['service_link'])) {
         update_post_meta($post_id, '_service_link', esc_url_raw($_POST['service_link']));
+    }
+    
+    if (isset($_POST['service_features'])) {
+        update_post_meta($post_id, '_service_features', sanitize_textarea_field($_POST['service_features']));
     }
 }
 add_action('save_post', 'freneticfocus_save_meta_boxes');
@@ -385,3 +441,88 @@ function freneticfocus_admin_notice_recommended_plugins() {
     }
 }
 add_action('admin_notices', 'freneticfocus_admin_notice_recommended_plugins');
+
+/**
+ * Force Contact Form 7 to use WordPress mail
+ * This ensures Contact Form 7 uses the Post SMTP plugin
+ */
+add_filter('wpcf7_mail_components', function($components, $contact_form, $mail_idx) {
+    // Make no changes to the components,
+    // but force CF7 to use WordPress mail system
+    return $components;
+}, 10, 3);
+
+/**
+ * Fix email sending for Contact Form 7
+ * This prevents CF7 from using PHP mail directly
+ */
+add_action('wpcf7_before_send_mail', function($contact_form) {
+    // Do nothing, just intercept to ensure proper mail handling
+});
+
+/**
+ * Improve Contact Form 7 email formatting for better deliverability
+ */
+add_filter('wpcf7_mail_components', 'freneticfocus_improve_cf7_mail', 20, 3);
+function freneticfocus_improve_cf7_mail($components, $contact_form, $mail_idx) {
+    // Only modify if components exist
+    if (!is_array($components)) {
+        return $components;
+    }
+    
+    // Clean up recipient format (remove angle brackets if present)
+    if (isset($components['recipient'])) {
+        $components['recipient'] = trim(str_replace(['<', '>'], '', $components['recipient']));
+    }
+    
+    // Set a clean From header if it doesn't look right
+    if (isset($components['sender'])) {
+        // If sender doesn't include an email address, fix it
+        if (strpos($components['sender'], '@') === false) {
+            $site_domain = parse_url(get_site_url(), PHP_URL_HOST);
+            $components['sender'] = get_bloginfo('name') . ' <wordpress@' . $site_domain . '>';
+        }
+    }
+    
+    // Add some basic headers to improve deliverability
+    if (isset($components['additional_headers'])) {
+        if (strpos($components['additional_headers'], 'MIME-Version') === false) {
+            $components['additional_headers'] .= "\nMIME-Version: 1.0";
+        }
+        if (strpos($components['additional_headers'], 'X-Mailer') === false) {
+            $components['additional_headers'] .= "\nX-Mailer: Contact Form 7 (WordPress)";
+        }
+    }
+    
+    return $components;
+}
+
+/**
+ * Output custom CSS for hero image
+ */
+function freneticfocus_hero_css() {
+    $hero_bg = get_theme_mod('hero_background_image', get_template_directory_uri() . '/assets/images/hero-image-2.png');
+    
+    if (!empty($hero_bg)) {
+        echo '<style>
+            .hero {
+                --hero-bg: url(' . esc_url($hero_bg) . ');
+            }
+        </style>';
+    }
+}
+add_action('wp_head', 'freneticfocus_hero_css');
+
+/**
+ * Fix logo color on scroll
+ */
+function freneticfocus_header_color_fix() {
+    echo '<style>
+        /* Fix for logo color on scroll - applied with highest priority */
+        header.scrolled .text-logo .logo-top,
+        header.scrolled .text-logo .logo-bottom {
+            color: #ffb300 !important;
+        }
+    </style>';
+}
+add_action('wp_head', 'freneticfocus_header_color_fix', 999);

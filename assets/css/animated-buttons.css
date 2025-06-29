@@ -1,0 +1,119 @@
+/**
+ * FreneticFocus Animated Buttons and CTA Sections
+ * Adds subtle gradient animations to buttons and CTA sections across the site
+ */
+
+/* Standard button with animated gradient */
+.btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #333333 0%, #444444 50%, #555555 100%);
+    background-size: 200% 200%;
+    animation: buttonGradient 8s ease infinite;
+    color: white;
+    padding: 16px 36px;
+    text-decoration: none;
+    font-size: 18px;
+    letter-spacing: 1px;
+    border-radius: 0;
+    border: none;
+    font-weight: 500;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Subtle gradient animation for buttons */
+@keyframes buttonGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Light button variation */
+.btn-light {
+    background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 50%, #f0f0f0 100%);
+    background-size: 200% 200%;
+    animation: lightButtonGradient 8s ease infinite;
+    color: #333;
+}
+
+/* Lighter gradient animation for light buttons */
+@keyframes lightButtonGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* CTA Sections across all pages */
+.cta, 
+.experience-section .cta-box {
+    background: linear-gradient(135deg, #333333 0%, #444444 40%, #66490e 100%);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+}
+
+/* Service-specific buttons */
+.service-section .btn {
+    margin-top: 40px;
+    display: inline-block;
+}
+
+/* Light buttons in CTA sections */
+.cta .btn-light,
+.experience-section .cta-box .btn {
+    background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 50%, #f0f0f0 100%);
+    background-size: 200% 200%;
+    animation: lightButtonGradient 8s ease infinite;
+    color: #333;
+}
+
+/* Subtle gradient animation for CTA sections */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Ensure content remains readable on animated backgrounds */
+.cta h2,
+.cta p,
+.experience-section .cta-box h3,
+.experience-section .cta-box p {
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .btn {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn {
+        padding: 12px 20px;
+        font-size: 15px;
+    }
+}

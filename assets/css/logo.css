@@ -1,0 +1,54 @@
+/**
+ * FreneticFocus Logo Styles
+ */
+
+/* Text-based logo */
+.text-logo {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px; /* Slightly increased from 28px */
+    line-height: 1;
+    letter-spacing: -0.5px;
+}
+
+.logo-top {
+    color: #ffb300; /* Updated to golden color */
+    margin-right: 2px;
+    display: block;
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.logo-bottom {
+    color: #ffb300; /* Updated to match top part */
+    display: block;
+}
+
+/* Testing color transition */
+.text-logo .logo-top,
+.text-logo .logo-bottom {
+    transition: color 0.4s ease;
+}
+
+/* Logo styling when header is scrolled - maintaining the gold color */
+header.scrolled .text-logo .logo-top,
+header.scrolled .text-logo .logo-bottom {
+    color: #ffb300 !important; /* Maintain gold color when scrolled */
+}
+
+/* Responsive logo adjustments */
+@media (max-width: 768px) {
+    .text-logo {
+        font-size: 28px; /* Reduce size on smaller screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .text-logo {
+        font-size: 24px; /* Further reduce size on smallest screens */
+    }
+}

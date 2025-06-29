@@ -21,22 +21,13 @@
     <header id="header">
         <div class="container header-container">
             <?php
-            if (has_custom_logo()) {
-                // Custom logo
-                $custom_logo_id = get_theme_mod('custom_logo');
-                $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-                if ($logo) {
-                    echo '<a href="' . esc_url(home_url('/')) . '" class="custom-logo-link" rel="home">';
-                    echo '<img src="' . esc_url($logo[0]) . '" class="custom-logo" alt="' . get_bloginfo('name') . '">';
-                    echo '</a>';
-                }
-            } else {
+            // Always use the text-based logo instead of the WordPress custom logo
             ?>
-                <a href="<?php echo esc_url(home_url('/')); ?>" class="logo"><?php bloginfo('name'); ?></a>
-            <?php
-            }
-            ?>
-            <nav>
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="text-logo">
+                    <span class="logo-top">Frenetic</span>
+                    <span class="logo-bottom">Focus</span>
+                </a>
+            <nav class="main-navigation">
                 <?php
                 if (has_nav_menu('primary')) {
                     // If a menu is assigned to the primary location, use it
@@ -52,8 +43,21 @@
                     echo '<ul id="primary-menu">';
                     echo '<li><a href="' . esc_url(home_url('/')) . '">Home</a></li>';
                     
-                    // Get services page URL dynamically
+                    // Get about page URL dynamically
+                    $about_page = get_page_by_path('about');
+                    if ($about_page) {
+                        echo '<li><a href="' . esc_url(get_permalink($about_page->ID)) . '">About</a></li>';
+                    } else {
+                        echo '<li><a href="' . esc_url(home_url('/about/')) . '">About</a></li>';
+                    }
+                    
+                    // Get services page URL dynamically - checks different slug possibilities
                     $services_page = get_page_by_path('services');
+                    if (!$services_page) {
+                        $services_page = get_page_by_path('our-services');
+                    }
+                    
+                    // Check if the services page has a specific template
                     if ($services_page) {
                         echo '<li><a href="' . esc_url(get_permalink($services_page->ID)) . '">Services</a></li>';
                     } else {
@@ -72,5 +76,10 @@
                 }
                 ?>
             </nav>
+            <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
         </div>
     </header>

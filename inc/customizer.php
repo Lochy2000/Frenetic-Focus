@@ -97,6 +97,18 @@ function freneticfocus_customize_register($wp_customize) {
         'priority' => 40,
     ));
 
+    // About Page Hero Background Image
+    $wp_customize->add_setting('about_hero_background_image', array(
+        'default' => get_template_directory_uri() . '/assets/images/hero-image.png',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'about_hero_background_image', array(
+        'label' => __('About Page Hero Background Image', 'freneticfocus'),
+        'section' => 'freneticfocus_about_section',
+        'settings' => 'about_hero_background_image',
+    )));
+
     // About Title
     $wp_customize->add_setting('about_title', array(
         'default' => 'About Lara van Rooyen',
@@ -108,7 +120,7 @@ function freneticfocus_customize_register($wp_customize) {
         'section' => 'freneticfocus_about_section',
         'type' => 'text',
     ));
-
+    
     // About Content
     $wp_customize->add_setting('about_content', array(
         'default' => '<p>Lara van Rooyen provides comprehensive and innovative workshops and focus to businesses and individuals seeking to enhance their digital literacy and operational efficiency. Based in Stockholm and Nice, she specializes in a variety of management services tailored to meet the diverse needs of clients.</p>
@@ -133,6 +145,7 @@ function freneticfocus_customize_register($wp_customize) {
         'label' => __('About Image', 'freneticfocus'),
         'section' => 'freneticfocus_about_section',
         'settings' => 'about_image',
+        'description' => __('Upload an image to display in the about section. The image will be scaled to fit properly.', 'freneticfocus'),
     )));
 
     // About Image Alt Text
@@ -169,6 +182,75 @@ function freneticfocus_customize_register($wp_customize) {
         'label' => __('Button URL', 'freneticfocus'),
         'section' => 'freneticfocus_about_section',
         'type' => 'url',
+    ));
+
+    /*****************************************
+     * Introduction Section (Front Page)
+     *****************************************/
+    $wp_customize->add_section('freneticfocus_intro_section', array(
+        'title' => __('Introduction Section', 'freneticfocus'),
+        'priority' => 45,
+    ));
+
+    // Intro Title
+    $wp_customize->add_setting('intro_title', array(
+        'default' => 'Welcome to FreneticFocus',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('intro_title', array(
+        'label' => __('Intro Title', 'freneticfocus'),
+        'section' => 'freneticfocus_intro_section',
+        'type' => 'text',
+    ));
+
+    // Intro Content
+    $wp_customize->add_setting('intro_content', array(
+        'default' => '<p>At FreneticFocus, we specialize in delivering strategic management solutions that help organizations navigate change and achieve operational excellence. Based in Nice, France, we bring global expertise with experience across Sweden and Australia.</p>',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+
+    $wp_customize->add_control('intro_content', array(
+        'label' => __('Intro Content', 'freneticfocus'),
+        'section' => 'freneticfocus_intro_section',
+        'type' => 'textarea',
+    ));
+
+    // Intro Image
+    $wp_customize->add_setting('intro_image', array(
+        'default' => get_template_directory_uri() . '/assets/images/about-image.png',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'intro_image', array(
+        'label' => __('Intro Image', 'freneticfocus'),
+        'section' => 'freneticfocus_intro_section',
+        'settings' => 'intro_image',
+        'description' => __('Upload an image for the introduction section on the front page.', 'freneticfocus'),
+    )));
+
+    // Intro Image Alt Text
+    $wp_customize->add_setting('intro_image_alt', array(
+        'default' => 'FreneticFocus Expertise',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('intro_image_alt', array(
+        'label' => __('Intro Image Alt Text', 'freneticfocus'),
+        'section' => 'freneticfocus_intro_section',
+        'type' => 'text',
+    ));
+
+    // Intro Button Text
+    $wp_customize->add_setting('intro_button_text', array(
+        'default' => 'Learn More About Me',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('intro_button_text', array(
+        'label' => __('Button Text', 'freneticfocus'),
+        'section' => 'freneticfocus_intro_section',
+        'type' => 'text',
     ));
 
     /*****************************************
@@ -393,14 +475,153 @@ function freneticfocus_customize_register($wp_customize) {
     // Contact Form 7 ID
     $wp_customize->add_setting('contact_form_id', array(
         'default' => '',
-        'sanitize_callback' => 'absint',
+        'sanitize_callback' => 'sanitize_text_field',
     ));
 
     $wp_customize->add_control('contact_form_id', array(
         'label' => __('Contact Form 7 ID', 'freneticfocus'),
-        'description' => __('Enter the ID of the Contact Form 7 form to display on the contact page.', 'freneticfocus'),
+        'description' => __('Enter the ID of the Contact Form 7 form to display on the contact page (e.g. "ae45b5f").', 'freneticfocus'),
         'section' => 'freneticfocus_contact_page_section',
-        'type' => 'number',
+        'type' => 'text',
+    ));
+
+    /*****************************************
+     * Service Descriptions - Individual Sections
+     *****************************************/
+    $wp_customize->add_section('freneticfocus_service_descriptions_section', array(
+        'title' => __('Service Descriptions', 'freneticfocus'),
+        'priority' => 56,
+        'description' => 'Edit the content of each service section on the Services page.',
+    ));
+
+    // Change Management Content
+    $wp_customize->add_setting('change_management_content', array(
+        'default' => '<p>Our change management services are designed to help organizations navigate the complexities of transformation and innovation. We provide strategic guidance and hands-on support to ensure smooth transitions and sustainable growth.</p>
+<p>By identifying potential challenges and developing proactive solutions, we help businesses adapt to change while maintaining stability and productivity.</p>',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+
+    $wp_customize->add_control('change_management_content', array(
+        'label' => __('Change Management Content', 'freneticfocus'),
+        'section' => 'freneticfocus_service_descriptions_section',
+        'type' => 'textarea',
+    ));
+
+    // Change Management Features
+    $wp_customize->add_setting('change_management_features', array(
+        'default' => "Organizational change readiness assessments\nChange impact analysis and risk mitigation\nStakeholder engagement and communication planning\nResistance management strategies\nTraining and support for change implementation\nPost-change evaluation and sustainability planning",
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+
+    $wp_customize->add_control('change_management_features', array(
+        'label' => __('Change Management Features', 'freneticfocus'),
+        'description' => __('Enter features, one per line. These will be displayed as bullet points.', 'freneticfocus'),
+        'section' => 'freneticfocus_service_descriptions_section',
+        'type' => 'textarea',
+    ));
+
+    // Program Management Content
+    $wp_customize->add_setting('program_management_content', array(
+        'default' => '<p>We offer comprehensive program management services to oversee and coordinate multiple related projects. Our approach ensures that all initiatives align with the overarching goals of the organization, delivering value and achieving desired outcomes.</p>
+<p>From planning and execution to monitoring and evaluation, we provide end-to-end support to drive successful program implementation.</p>',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+
+    $wp_customize->add_control('program_management_content', array(
+        'label' => __('Program Management Content', 'freneticfocus'),
+        'section' => 'freneticfocus_service_descriptions_section',
+        'type' => 'textarea',
+    ));
+
+    // Program Management Features
+    $wp_customize->add_setting('program_management_features', array(
+        'default' => "Program governance and structure development\nStrategic planning and roadmap creation\nResource allocation and optimization\nCross-project dependency management\nRisk and issue management\nProgram performance tracking and reporting\nBenefits realization management",
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+
+    $wp_customize->add_control('program_management_features', array(
+        'label' => __('Program Management Features', 'freneticfocus'),
+        'description' => __('Enter features, one per line. These will be displayed as bullet points.', 'freneticfocus'),
+        'section' => 'freneticfocus_service_descriptions_section',
+        'type' => 'textarea',
+    ));
+
+    // REDILI Content
+    $wp_customize->add_setting('redili_content', array(
+        'default' => '<p>In today\'s digital age, understanding and leveraging technology is crucial for success in the real estate industry. Our REDILI program is designed to enhance digital literacy among real estate professionals.</p>
+<p>We offer training and resources that cover a wide range of topics, including digital marketing, data analysis, and the use of technology in property management. Our goal is to empower real estate practitioners with the skills and knowledge needed to thrive in a digital-first market.</p>',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+
+    $wp_customize->add_control('redili_content', array(
+        'label' => __('REDILI Content', 'freneticfocus'),
+        'section' => 'freneticfocus_service_descriptions_section',
+        'type' => 'textarea',
+    ));
+
+    // REDILI Features
+    $wp_customize->add_setting('redili_features', array(
+        'default' => "Digital marketing strategies for real estate\nSocial media management and content creation\nVirtual tour and property showcase technologies\nCRM and lead management systems\nData analytics for market analysis\nDigital document management and e-signatures\nSmart home and property technology integration",
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+
+    $wp_customize->add_control('redili_features', array(
+        'label' => __('REDILI Features', 'freneticfocus'),
+        'description' => __('Enter features, one per line. These will be displayed as bullet points.', 'freneticfocus'),
+        'section' => 'freneticfocus_service_descriptions_section',
+        'type' => 'textarea',
+    ));
+
+    // CX Mapping Content
+    $wp_customize->add_setting('cx_mapping_content', array(
+        'default' => '<p>Understanding the customer journey is essential for creating meaningful and impactful experiences. Our customer journey mapping workshops are designed to help businesses gain insights into their customers\' interactions and touchpoints.</p>
+<p>By visualizing the customer journey, we identify opportunities for improvement and develop strategies to enhance customer satisfaction and loyalty. Our workshops are interactive, collaborative, and tailored to the specific needs of each organization.</p>',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+
+    $wp_customize->add_control('cx_mapping_content', array(
+        'label' => __('CX Mapping Content', 'freneticfocus'),
+        'section' => 'freneticfocus_service_descriptions_section',
+        'type' => 'textarea',
+    ));
+
+    // CX Mapping Features
+    $wp_customize->add_setting('cx_mapping_features', array(
+        'default' => "Customer persona development\nTouchpoint identification and analysis\nEmotion mapping across customer interactions\nPain point identification and resolution strategies\nOpportunity discovery for enhancing customer experience\nAction planning for customer experience improvement\nMetrics and measurement framework development",
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+
+    $wp_customize->add_control('cx_mapping_features', array(
+        'label' => __('CX Mapping Features', 'freneticfocus'),
+        'description' => __('Enter features, one per line. These will be displayed as bullet points.', 'freneticfocus'),
+        'section' => 'freneticfocus_service_descriptions_section',
+        'type' => 'textarea',
+    ));
+
+    // M365 Adoption Content
+    $wp_customize->add_setting('m365_adoption_content', array(
+        'default' => '<p>Our M365 adoption services are designed to help organizations seamlessly integrate Microsoft 365 into their daily operations. We provide comprehensive training and support to ensure that your team can fully leverage the capabilities of Microsoft 365.</p>
+<p>Our goal is to enhance productivity, collaboration, and efficiency through effective use of M365 tools and features.</p>',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+
+    $wp_customize->add_control('m365_adoption_content', array(
+        'label' => __('M365 Adoption Content', 'freneticfocus'),
+        'section' => 'freneticfocus_service_descriptions_section',
+        'type' => 'textarea',
+    ));
+
+    // M365 Adoption Features
+    $wp_customize->add_setting('m365_adoption_features', array(
+        'default' => "M365 implementation planning and strategy\nUser adoption and change management\nCustomized training programs for different user levels\nWorkflow optimization using M365 tools\nSecurity and compliance configuration\nIntegration with existing systems and processes\nOngoing support and continuous improvement",
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+
+    $wp_customize->add_control('m365_adoption_features', array(
+        'label' => __('M365 Adoption Features', 'freneticfocus'),
+        'description' => __('Enter features, one per line. These will be displayed as bullet points.', 'freneticfocus'),
+        'section' => 'freneticfocus_service_descriptions_section',
+        'type' => 'textarea',
     ));
 
     /*****************************************
@@ -481,7 +702,7 @@ function freneticfocus_customize_register($wp_customize) {
 
     // Contact Email
     $wp_customize->add_setting('contact_email', array(
-        'default' => 'info@freneticfocus.com',
+        'default' => 'info@freneticfocus.com', // Default email address
         'sanitize_callback' => 'sanitize_email',
     ));
 
@@ -493,7 +714,7 @@ function freneticfocus_customize_register($wp_customize) {
 
     // Social Media URLs
     $wp_customize->add_setting('linkedin_url', array(
-        'default' => '',
+        'default' => 'https://linkedin.com/company/freneticfocus',
         'sanitize_callback' => 'esc_url_raw',
     ));
 

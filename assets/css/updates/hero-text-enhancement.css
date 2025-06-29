@@ -1,0 +1,76 @@
+/**
+ * Hero Text Enhancement Styles
+ * Makes hero text more prominent on home and services pages
+ */
+
+/* Home Page Hero Text Enhancement */
+.hero-content h1 {
+    font-size: 56px;
+    line-height: 1.2;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 24px;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+.hero .btn {
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Services Page Hero Text Enhancement */
+.services-hero-content h1 {
+    font-size: 56px;
+    line-height: 1.2;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.services-hero-content p {
+    font-size: 24px;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+.services-hero .btn {
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .hero-content h1,
+    .services-hero-content h1 {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content h1,
+    .services-hero-content h1 {
+        font-size: 42px;
+    }
+    
+    .hero-content p,
+    .services-hero-content p {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content h1,
+    .services-hero-content h1 {
+        font-size: 32px;
+    }
+    
+    .hero-content p,
+    .services-hero-content p {
+        font-size: 18px;
+    }
+}

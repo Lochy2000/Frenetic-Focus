@@ -2,15 +2,86 @@
  * FreneticFocus Services Page Styles
  */
 
+/* Service Navigation Section - New style for the nav section */
+.service-nav-section {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    z-index: 900;
+}
+
 /* Service Nav */
 .service-nav {
-    position: sticky;
-    top: 80px;
-    background-color: white;
-    padding: 20px 0;
+    position: relative;
     z-index: 900;
-    margin-bottom: 80px;
+    margin: 0;
+    padding: 8px 0;
+    transition: all 0.3s ease;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
+}
+
+/* Add container styles when nav is sticky */
+.service-nav.sticky .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Override styles for service nav when in hero section */
+.service-nav-hero {
+    background-color: transparent;
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+/* Service Nav Inner Container */
+.service-nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+}
+
+/* When sticky, apply full-width background and contain inner content */
+.service-nav.sticky {
+    position: fixed;
+    top: 70px; /* Align with bottom of navbar */
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: rgba(245, 245, 245, 0.9);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    padding: 8px 0;
+    z-index: 999;
+    border: none;
+}
+
+.service-nav-toggle {
+    display: none;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+}
+
+.service-nav-toggle::after {
+    content: '\25BC';
+    position: absolute;
+    right: 20px;
+    transition: transform 0.3s;
+}
+
+.service-nav-open .service-nav-toggle::after {
+    transform: rotate(180deg);
 }
 
 .service-nav ul {
@@ -18,21 +89,48 @@
     list-style: none;
     justify-content: center;
     flex-wrap: wrap;
+    gap: 30px; /* Spacing between items */
+    padding: 10px 15px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: rgba(150, 150, 150, 0.7); /* Background color */
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    max-width: fit-content;
+    border: none;
 }
 
 .service-nav ul li {
-    margin: 0 20px;
+    margin: 0;
 }
 
+/* Default service nav items (dark) */
 .service-nav ul li a {
     text-decoration: none;
     color: #333;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 18px; /* Increased from 16px */
     letter-spacing: 1px;
-    transition: color 0.3s;
+    transition: color 0.3s, opacity 0.3s;
     position: relative;
     padding: 10px 0;
+    display: inline-block;
+}
+
+/* Hero service nav items */
+.service-nav-hero ul li a {
+    color: #333; /* Changed to dark text for better contrast */
+    opacity: 1;
+    font-size: 16px; /* Reduced size */
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.service-nav-hero ul li a:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    color: #000; /* Darken on hover */
 }
 
 .service-nav ul li a::after {
@@ -46,21 +144,48 @@
     transition: width 0.3s;
 }
 
+.service-nav-hero ul li a::after {
+    background-color: #333;
+}
+
 .service-nav ul li a:hover::after,
+.service-nav ul li a.active {
+    color: #000;
+    font-weight: 700;
+}
+
 .service-nav ul li a.active::after {
     width: 100%;
 }
 
+/* Consistent styling for service nav when sticky */
+.service-nav.sticky {
+    background-color: transparent;
+}
+
+.service-nav.sticky ul {
+    background-color: rgba(150, 150, 150, 0.7);
+}
+
+.service-nav.sticky ul li a {
+    color: #333;
+}
+
+.service-nav.sticky ul li a::after {
+    background-color: #333;
+}
+
 /* Services Hero Section */
 .services-hero {
-    height: 100vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), var(--services-hero-bg, url('../images/hero-image.png'));
+    min-height: 70vh; /* Use viewport height for better scaling */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), var(--services-hero-bg, url('../images/hero-image.png'));
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: center;
     padding: 0;
     color: white;
+    position: relative;
 }
 
 .services-hero-content {
@@ -78,6 +203,8 @@
     padding: 80px 0;
     display: flex;
     align-items: center;
+    border-top: none;
+    margin-top: 0;
 }
 
 .service-section:nth-child(odd) {
@@ -91,7 +218,7 @@
 .service-content {
     display: flex;
     align-items: center;
-    gap: 80px;
+    gap: clamp(30px, 5%, 80px);
 }
 
 .service-text {
@@ -105,8 +232,9 @@
 .service-image img {
     width: 100%;
     height: auto;
-    max-height: 70vh;
-    object-fit: cover;
+    max-width: 100%;
+    object-fit: contain;
+    max-height: none;
 }
 
 .service-section h2 {
@@ -162,7 +290,7 @@
     right: 0;
 }
 
-/* Media Queries */
+/* Service Nav Responsive Breakpoints */
 @media (max-width: 992px) {
     .service-content {
         flex-direction: column !important;
@@ -176,15 +304,153 @@
         left: 0;
         right: auto;
     }
+    
+    /* Adjust service section spacing */
+    .service-content {
+        gap: 40px;
+    }
+    
+    /* Adjust service nav */
+    .service-nav ul {
+        gap: 22px;
+    }
+    
+    .service-nav ul li a {
+        font-size: 15px;
+    }
+}
+
+/* Tablet-specific breakpoint - handles the problematic range */
+@media (max-width: 850px) and (min-width: 769px) {
+    /* Make the nav more compact with smaller font */
+    .service-nav ul {
+        gap: 15px;
+        padding: 8px 12px;
+    }
+    
+    .service-nav ul li a {
+        font-size: 14px;
+        letter-spacing: 0;
+    }
+    
+    /* Make service items shorter on this specific breakpoint */
+    .service-nav ul li a[href="#program-management"]:after {
+        content: attr(href);
+        font-size: 0;
+    }
+    
+    .service-nav ul li a[href="#program-management"]:before {
+        content: "Program Mgmt";
+    }
+    
+    .service-nav ul li a[href="#change-management"]:after {
+        content: attr(href);
+        font-size: 0;
+    }
+    
+    .service-nav ul li a[href="#change-management"]:before {
+        content: "Change Mgmt";
+    }
 }
 
 @media (max-width: 768px) {
-    .service-nav ul {
-        flex-direction: column;
-        align-items: center;
+    /* Adjust hero height for mobile */
+    .services-hero {
+        min-height: 50vh;
     }
     
-    .service-nav ul li {
-        margin: 5px 0;
+    /* Service navigation mobile styling */
+    .service-nav {
+        margin: 0;
+        padding: 5px 0;
+        position: relative !important; /* Force relative positioning on mobile */
+        top: auto !important;
+    }
+    
+    /* Disable sticky functionality on mobile */
+    .service-nav.sticky {
+        position: relative !important;
+        top: auto !important;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 5px 0;
+    }
+    
+    /* Make services list scrollable on mobile */
+    .service-nav ul {
+        flex-wrap: nowrap;
+        gap: 12px;
+        padding: 8px 12px;
+        overflow-x: auto;
+        white-space: nowrap;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+    }
+    
+    /* Hide scrollbar */
+    .service-nav ul::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .service-nav ul li a {
+        font-size: 14px;
+    }
+    
+    /* Adjust service nav size and position */
+    .service-nav-inner {
+        width: 100%;
+    }
+    
+    /* Keep the nav background and text colors consistent */
+    .service-nav.sticky {
+        background-color: transparent;
+    }
+    
+    .service-nav.sticky ul {
+        background-color: rgba(150, 150, 150, 0.7);
+    }
+    
+    .service-nav.sticky ul li a {
+        color: #333;
+    }
+    
+    .service-nav.sticky ul li a::after {
+        background-color: #333;
+    }
+    
+    /* Service section adjustments */
+    .service-section {
+        min-height: auto;
+        padding: 60px 0;
+    }
+    
+    .service-section h2 {
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        text-align: center;
+    }
+    
+    .service-section h2::after {
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%);
+        width: 60px;
+    }
+    
+    .service-image {
+        margin-top: 30px;
+        max-width: 100%;
+    }
+    
+    .service-image img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        margin: 0 auto;
+        display: block;
+        object-fit: contain;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
     }
 }

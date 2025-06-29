@@ -10,38 +10,48 @@ get_header();
 
 <!-- Hero Section -->
 <section class="hero section">
-    <div class="container">
-        <div class="hero-content">
-            <h1><?php echo esc_html(get_theme_mod('hero_title', 'Comprehensive Management Services Tailored to Your Needs')); ?></h1>
-            <p><?php echo esc_html(get_theme_mod('hero_subtitle', 'Empowering businesses and individuals to enhance digital literacy and operational efficiency')); ?></p>
-            <a href="<?php echo esc_url(get_theme_mod('hero_button_url', '/contact')); ?>" class="btn btn-light"><?php echo esc_html(get_theme_mod('hero_button_text', 'Book a Consultation')); ?></a>
+    <div class="container" style="display: flex; justify-content: center;">
+        <div class="hero-content text-center">
+            <h1 style="font-size: 42px; line-height: 1.3;"><?php echo esc_html(get_theme_mod('hero_subtitle', 'Empowering businesses and individuals to enhance digital literacy and operational efficiency')); ?></h1>
+            <div style="text-align: center;"><a href="<?php echo freneticfocus_get_button_url('hero_button_url', 'contact'); ?>" class="btn btn-light"><?php echo esc_html(get_theme_mod('hero_button_text', 'Book a Consultation')); ?></a></div>
         </div>
     </div>
-    <a href="#about" class="scroll-down">
+    <a href="#intro" class="scroll-down">
         <span>SCROLL DOWN</span>
         <div class="arrow"></div>
     </a>
 </section>
 
-<!-- About Section -->
-<section id="about" class="about section">
+<!-- Introduction Section -->
+<section id="intro" class="intro section">
     <div class="container">
-        <h2><?php echo esc_html(get_theme_mod('about_title', 'About Lara van Rooyen')); ?></h2>
-        <div class="about-content">
-            <div class="about-text">
-                <?php
-                $about_content = get_theme_mod('about_content', '<p>Lara van Rooyen provides comprehensive and innovative workshops and focus to businesses and individuals seeking to enhance their digital literacy and operational efficiency. Based in Stockholm and Nice, she specializes in a variety of management services tailored to meet the diverse needs of clients.</p>
-                <p>As a seasoned professional, Lara is committed to delivering excellence through a combination of expertise, experience, and cutting-edge strategies. She is proficient in both Swedish and English languages, allowing her to serve a diverse clientele.</p>
-                <p>We founded Legora with the mission of changing how professionals work. Millions of professionals dedicate their lives to solving their clients\' and companies\' most pressing problems. It became our calling to help them achieve these missions faster, with even greater impact.</p>');
-                echo wp_kses_post($about_content);
-                ?>
-                <a href="<?php echo esc_url(get_theme_mod('about_button_url', '/contact')); ?>" class="btn"><?php echo esc_html(get_theme_mod('about_button_text', 'Get in Touch')); ?></a>
+        <div class="intro-content">
+            <div class="intro-text">
+                <h2><?php echo esc_html(get_theme_mod('intro_title', 'Welcome to FreneticFocus')); ?></h2>
+                <div class="intro-description">
+                    <?php echo wp_kses_post(get_theme_mod('intro_content', '<p>At FreneticFocus, we specialize in delivering strategic management solutions that help organizations navigate change and achieve operational excellence. Based in Nice, France, we bring global expertise with experience across Sweden and Australia.</p>')); ?>
+                </div>
+                
+                <div class="location-info">
+                    <div class="location">
+                        <div class="location-icon">🇫🇷</div>
+                        <p>FR</p>
+                    </div>
+                    <div class="location">
+                        <div class="location-icon">🇸🇪</div>
+                        <p>SE</p>
+                    </div>
+                    <div class="location">
+                        <div class="location-icon">🇦🇺</div>
+                        <p>AU</p>
+                    </div>
+                </div>
+                <a href="<?php echo esc_url(get_permalink(get_page_by_path('about'))); ?>" class="btn"><?php echo esc_html(get_theme_mod('intro_button_text', 'Learn More About Me')); ?></a>
             </div>
-            <div class="about-image">
-                <?php 
-                $about_image = get_theme_mod('about_image', get_template_directory_uri() . '/assets/images/about-image.png');
-                ?>
-                <img src="<?php echo esc_url($about_image); ?>" alt="<?php echo esc_attr(get_theme_mod('about_image_alt', 'Lara van Rooyen')); ?>">
+            <div class="intro-image">
+                <?php if (get_theme_mod('intro_image')) : ?>
+                <img src="<?php echo esc_url(get_theme_mod('intro_image', get_template_directory_uri() . '/assets/images/about-image.png')); ?>" alt="<?php echo esc_attr(get_theme_mod('intro_image_alt', 'FreneticFocus Expertise')); ?>">
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -91,43 +101,41 @@ get_header();
                 // Fallback if no services are created yet
             ?>
                 <div class="service-card">
-                    <div class="service-icon">⟳</div>
-                    <h3>Change Management</h3>
-                    <p>Helping organizations navigate the complexities of transformation and innovation with strategic guidance and hands-on support.</p>
-                    <a href="' . esc_url(home_url('/services/')) . '">Services</a>
+                    <div class="service-icon">🏠</div>
+                    <h3>Real Estate Digital Literacy</h3>
+                    <p>Empowering real estate professionals with digital skills</p>
+                    <a href="<?php echo esc_url(home_url('/services/')); ?>#redili">Learn More →</a>
                 </div>
                 
                 <div class="service-card">
                     <div class="service-icon">📊</div>
                     <h3>Program Management</h3>
-                    <p>Comprehensive program management services to oversee and coordinate multiple related projects aligned with organizational goals.</p>
-                    <a href="services.html#program-management">Learn More →</a>
+                    <p>Coordinated project execution</p>
+                    <a href="<?php echo esc_url(home_url('/services/')); ?>#program-management">Learn More →</a>
                 </div>
                 
                 <div class="service-card">
-                    <div class="service-icon">🏢</div>
-                    <h3>Real Estate Digital Literacy</h3>
-                    <p>Enhancing digital literacy among real estate professionals through specialized training and resources.</p>
-                    <a href="services.html#redili">Learn More →</a>
+                    <div class="service-icon">💻</div>
+                    <h3>M365 Adoption</h3>
+                    <p>Maximize your Microsoft 365 investment</p>
+                    <a href="<?php echo esc_url(home_url('/services/')); ?>#m365-adoption">Learn More →</a>
                 </div>
             <?php endif; ?>
         </div>
         
         <div style="text-align: center; margin-top: 60px;">
-            <a href="<?php echo esc_url(get_theme_mod('services_button_url', '/services')); ?>" class="btn"><?php echo esc_html(get_theme_mod('services_button_text', 'View All Services')); ?></a>
+            <a href="<?php echo freneticfocus_get_button_url('services_button_url', 'services'); ?>" class="btn"><?php echo esc_html(get_theme_mod('services_button_text', 'View All Services')); ?></a>
         </div>
     </div>
 </section>
 
 <!-- Call to Action Section -->
-<section class="cta section">
+<section class="cta section animated-bg">
     <div class="container">
         <h2><?php echo esc_html(get_theme_mod('cta_title', 'Ready to Transform Your Business?')); ?></h2>
         <p><?php echo esc_html(get_theme_mod('cta_subtitle', 'Schedule a consultation today and discover how our comprehensive management services can help you achieve your goals.')); ?></p>
-        <a href="<?php echo esc_url(get_theme_mod('cta_button_url', '/contact')); ?>" class="btn btn-light"><?php echo esc_html(get_theme_mod('cta_button_text', 'Book a Consultation')); ?></a>
+        <a href="<?php echo freneticfocus_get_button_url('cta_button_url', 'contact'); ?>" class="btn btn-light"><?php echo esc_html(get_theme_mod('cta_button_text', 'Book a Consultation')); ?></a>
     </div>
 </section>
-
-
 
 <?php get_footer(); ?>

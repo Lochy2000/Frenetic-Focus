@@ -210,6 +210,76 @@ Kirki::add_field('freneticfocus_config', [
 ]);
 
 /*****************************************
+ * Real Estate Section
+ *****************************************/
+Kirki::add_section('freneticfocus_real_estate_section', array(
+    'title'       => esc_html__('Real Estate Section', 'freneticfocus'),
+    'description' => esc_html__('Customize the real estate section of the homepage', 'freneticfocus'),
+    'priority'    => 55,
+));
+
+// Real Estate Title
+Kirki::add_field('freneticfocus_config', [
+    'type'        => 'text',
+    'settings'    => 'real_estate_title',
+    'label'       => esc_html__('Real Estate Section Title', 'freneticfocus'),
+    'section'     => 'freneticfocus_real_estate_section',
+    'default'     => esc_html__('Real Estate Digital Literacy', 'freneticfocus'),
+    'priority'    => 10,
+]);
+
+// Real Estate Content
+Kirki::add_field('freneticfocus_config', [
+    'type'        => 'editor',
+    'settings'    => 'real_estate_content',
+    'label'       => esc_html__('Real Estate Content', 'freneticfocus'),
+    'section'     => 'freneticfocus_real_estate_section',
+    'default'     => '<p>In today's competitive real estate market, digital literacy is more than a convenience—it's a necessity. We offer specialized training and resources designed for real estate professionals to enhance their digital presence and operational efficiency.</p>
+    <p>From mastering digital marketing strategies to implementing cutting-edge property management systems, our comprehensive approach helps you stay ahead in an increasingly digital industry.</p>',
+    'priority'    => 20,
+]);
+
+// Real Estate Image
+Kirki::add_field('freneticfocus_config', [
+    'type'        => 'image',
+    'settings'    => 'real_estate_image',
+    'label'       => esc_html__('Real Estate Image', 'freneticfocus'),
+    'section'     => 'freneticfocus_real_estate_section',
+    'default'     => get_template_directory_uri() . '/assets/images/real-estate-image.jpg',
+    'priority'    => 30,
+]);
+
+// Real Estate Image Alt Text
+Kirki::add_field('freneticfocus_config', [
+    'type'        => 'text',
+    'settings'    => 'real_estate_image_alt',
+    'label'       => esc_html__('Real Estate Image Alt Text', 'freneticfocus'),
+    'section'     => 'freneticfocus_real_estate_section',
+    'default'     => esc_html__('Real Estate Digital Literacy', 'freneticfocus'),
+    'priority'    => 40,
+]);
+
+// Real Estate Button Text
+Kirki::add_field('freneticfocus_config', [
+    'type'        => 'text',
+    'settings'    => 'real_estate_button_text',
+    'label'       => esc_html__('Button Text', 'freneticfocus'),
+    'section'     => 'freneticfocus_real_estate_section',
+    'default'     => esc_html__('Learn More', 'freneticfocus'),
+    'priority'    => 50,
+]);
+
+// Real Estate Button URL
+Kirki::add_field('freneticfocus_config', [
+    'type'        => 'link',
+    'settings'    => 'real_estate_button_url',
+    'label'       => esc_html__('Button URL', 'freneticfocus'),
+    'section'     => 'freneticfocus_real_estate_section',
+    'default'     => '/services/#redili',
+    'priority'    => 60,
+]);
+
+/*****************************************
  * CTA Section
  *****************************************/
 Kirki::add_section('freneticfocus_cta_section', array(
@@ -283,7 +353,7 @@ Kirki::add_field('freneticfocus_config', [
     'settings'    => 'contact_email',
     'label'       => esc_html__('Contact Email', 'freneticfocus'),
     'section'     => 'freneticfocus_footer_section',
-    'default'     => 'info@freneticfocus.com',
+    'default'     => '',
     'priority'    => 20,
 ]);
 

@@ -1,0 +1,209 @@
+/**
+ * FreneticFocus Single Service Template Styles
+ */
+
+/* Single Service Hero */
+.single-service-hero {
+    min-height: 40vh;
+    background-color: #f8f8f5;
+    display: flex;
+    align-items: center;
+    padding: 100px 0 60px;
+    text-align: center;
+}
+
+.single-service-hero h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.single-service-hero h1:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: #333;
+}
+
+/* Single Service Content Layout */
+.single-service-content {
+    padding: 80px 0;
+}
+
+.service-content-layout {
+    display: flex;
+    gap: 60px;
+}
+
+.service-main-content {
+    flex: 7;
+}
+
+.service-sidebar {
+    flex: 3;
+}
+
+/* Featured Image */
+.service-featured-image {
+    margin-bottom: 40px;
+}
+
+.service-featured-image img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Service Description */
+.service-description {
+    margin-bottom: 40px;
+}
+
+.service-description h2 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.service-description p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+/* Service Features */
+.service-features {
+    margin-bottom: 40px;
+    padding: 30px;
+    background-color: #f8f8f5;
+    border-radius: 8px;
+}
+
+.service-features h3 {
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+.feature-list {
+    list-style-type: none;
+}
+
+.feature-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e5e5;
+    position: relative;
+    padding-left: 35px;
+}
+
+.feature-list li:last-child {
+    border-bottom: none;
+}
+
+.feature-list li:before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Sidebar */
+.service-contact-box {
+    padding: 30px;
+    background-color: #333;
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+
+.service-contact-box h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.service-contact-box p {
+    margin-bottom: 20px;
+}
+
+.service-contact-box .btn {
+    background-color: white;
+    color: #333;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.service-contact-box .btn:hover {
+    background-color: #f0f0f0;
+}
+
+.other-services {
+    padding: 30px;
+    background-color: #f8f8f5;
+    border-radius: 8px;
+}
+
+.other-services h3 {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.other-services ul {
+    list-style-type: none;
+}
+
+.other-services li {
+    padding: 15px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.other-services li:last-child {
+    border-bottom: none;
+}
+
+.other-services a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.other-services a:hover {
+    color: #555;
+}
+
+/* Media Queries */
+@media (max-width: 992px) {
+    .service-content-layout {
+        gap: 40px;
+    }
+    
+    .single-service-hero h1 {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .service-content-layout {
+        flex-direction: column;
+    }
+    
+    .single-service-hero {
+        padding: 80px 0 40px;
+    }
+    
+    .single-service-hero h1 {
+        font-size: 32px;
+    }
+    
+    .single-service-content {
+        padding: 60px 0;
+    }
+}
